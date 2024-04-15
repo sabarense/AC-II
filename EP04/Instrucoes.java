@@ -3,31 +3,37 @@ package EP04;
 import java.io.*;
 
 public class Instrucoes {
-    private char X;
-    private char Y;
-    private char W;
+    private char X; // registrador X
+    private char Y; // registrador Y
+    private char W; // instrucao
 
     public Instrucoes() {
-        this.X = '0';
-        this.Y = '0';
-        this.W = '0';
+        this.X = '0'; // inicializando com 0
+        this.Y = '0'; // inicializando com 0
+        this.W = '0'; // inicializando com 0
     }
 
-
+    // metodo main
     public static void main(String[] args) {
         Instrucoes instrucoes = new Instrucoes();
-        File arquivo_fonte = new File("testeula.ula");
-        String arquivo_saida = "testeula.hex";
+        File arquivo_fonte = new File("/home/group/Desktop/AC-II/EP04/testeula1.ula");
+        String arquivo_saida = "/home/group/Desktop/AC-II/EP04/testeula.hex";
+
+        // lendo o arquivo de entrada e escrevendo no arquivo de saida
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo_fonte));
              BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo_saida))) {
-            
+
             br.readLine();
             String linha;
+
+            // lendo o arquivo de entrada
             while((linha = br.readLine()) != null) {
                 if (linha.contains(";")) {
-                    linha = linha.replace(";", ""); // Remove o ponto e vírgula
+                    linha = linha.replace(";", ""); // removendo o ; e substituindo por um espaço vazio
                 }
-                System.out.println(linha);
+                System.out.println(linha); // testando
+
+                // verificando se a linha contem X, Y ou W
                 if(linha.charAt(0) == 'X') {
                     instrucoes.setX(linha.charAt(2));
                 }
@@ -45,6 +51,7 @@ public class Instrucoes {
         }
     }
 
+    // metodos get e set
     public void setX(char X) {
         this.X = X;
     }
@@ -69,55 +76,41 @@ public class Instrucoes {
         return this.W;
     }
 
-
+    // metodo que retorna o mnemonico
     public char mnemonicos(String mnemonico) {
-        if(mnemonico.equals("nB")) {
-            return '0';
-        }
-        if(mnemonico.equals("nAeBn")) {
-            return '1';
-        }
-        if(mnemonico.equals("nAeB")) {
-            return '2';
-        }
-        if(mnemonico.equals("Lzero")) {
-            return '3';
-        }
-        if(mnemonico.equals("AeBn")) {
-            return '4';
-        }
-        if(mnemonico.equals("nA")) {
-            return '5';
-        }
-        if(mnemonico.equals("AxB")) {
-            return '6';
-        }
-        if(mnemonico.equals("AenB")) {
-            return '7';
-        }
-        if(mnemonico.equals("nAonB")) {
-            return '8';
-        }
-        if(mnemonico.equals("nAxnB")) {
-            return '9';
-        }
-        if(mnemonico.equals("Bcopia")) {
-            return 'A';
-        }
-        if(mnemonico.equals("AeB")) {
-            return 'B';
-        }
-        if(mnemonico.equals("Lum")) {
-            return 'C';
-        }
-        if(mnemonico.equals("AonB")) {
-            return 'D';
-        }
-        if(mnemonico.equals("AoB")) {
-            return 'E';
-        }
-        if(mnemonico.equals("Acopia")) {
-            return 'F';
+        switch (mnemonico) {
+            case "nB":
+                return '0';
+            case "nAeBn":
+                return '1';
+            case "nAeB":
+                return '2';
+            case "Lzero":
+                return '3';
+            case "AeBn":
+                return '4';
+            case "nA":
+                return '5';
+            case "AxB":
+                return '6';
+            case "AenB":
+                return '7';
+            case "nAonB":
+                return '8';
+            case "nAxnB":
+                return '9';
+            case "Bcopia":
+                return 'A';
+            case "AeB":
+                return 'B';
+            case "Lum":
+                return 'C';
+            case "AonB":
+                return 'D';
+            case "AoB":
+                return 'E';
+            case "Acopia":
+                return 'F';
         }
         return 'N';
     }
