@@ -1,3 +1,4 @@
+//declaração de variáveis
 String entrada;
 int vermelho = 13;
 int amarelo = 12;
@@ -14,6 +15,7 @@ int w = 0;
 String output;
 String memoria[100];
 
+//configuração inicial
 void setup() {
   Serial.begin(9600);
   pinMode(vermelho, OUTPUT);
@@ -22,6 +24,7 @@ void setup() {
   pinMode(azul, OUTPUT);
 }
 
+//disponibilidade de dados na porta serial
 void loop() {
   memoria[0] = "0";
   memoria[1] = "0";
@@ -34,6 +37,7 @@ void loop() {
   }
 }
 
+//operacoes logicas
 String portanot(String bits) {
   String saida = "";
   for (int i = 0; i < 4; i++) {
@@ -72,6 +76,7 @@ String portaxor(String bits_a, String bits_b) {
   return saida;
 }
 
+//atualiza os bits de acordo com o valor da memória
 void atualizarBits() {
   bit_0 = memoria[1].charAt(0) - '0';
   bit_1 = memoria[1].charAt(1) - '0';
@@ -81,6 +86,7 @@ void atualizarBits() {
   memoria[1] = binaryToHex();
 }
 
+//converte um valor hexadecimal para binário
 String hexToBinary(int hexValue) {
   String binaryString = "";
   for (int i = 3; i >= 0; i--) {
@@ -90,6 +96,7 @@ String hexToBinary(int hexValue) {
   return binaryString;
 }
 
+//converte um valor binário para hexadecimal
 String binaryToHex() {
     long decimal = strtol(memoria[1].c_str(), NULL, 2);
     char hexString[3]; 
@@ -97,6 +104,7 @@ String binaryToHex() {
     return String(hexString); 
 }
 
+//converte um caractere hexadecimal para inteiro
 int hexCharToInt(char hexChar) {
   if (hexChar >= '0' && hexChar <= '9') {
     return hexChar - '0';
@@ -110,6 +118,7 @@ int hexCharToInt(char hexChar) {
   return -1;
 }
 
+//recebe uma string de entrada que representa o programa
 void carregarProgramaNaMemoria(String entrada) {
   int indice = 4;
   int tamanho = entrada.length();
@@ -127,6 +136,7 @@ void carregarProgramaNaMemoria(String entrada) {
   }
 }
 
+//percorre as instruções carregadas na memória, decodifica-as e executa as operações correspondentes usando as funções de portas lógicas
 void executarProgramaNaMemoria() {
   int indice = 4;
   int enderecoMemoriaInstrucao = 0;
@@ -148,9 +158,10 @@ void executarProgramaNaMemoria() {
   enderecoMemoriaInstrucao++;
   memoria[0] = enderecoMemoriaInstrucao;
   printarVetor();
-  Serial.print("Nao exitem mais instrucoes para serem executadas.");
+  Serial.print("Nao existem mais instrucoes para serem executadas.");
 }
 
+//realiza a instrução de acordo com o OpCode
 void realizaInstrucao(int opCode, String bits_x, String bits_y) {
  switch (opCode) {
     case 0:
@@ -221,6 +232,7 @@ void realizaInstrucao(int opCode, String bits_x, String bits_y) {
   delay(3000);
 }
 
+//atualiza os leds de acordo com os valores dos bits
 void atualizarLeds() {
   if(bit_0 == 1) {
     digitalWrite(vermelho, HIGH);
@@ -251,6 +263,7 @@ void atualizarLeds() {
   }
 }
 
+//printa o vetor de instruções
 void printarVetor(){
   for (int i = 0; i < contagemInstrucoes; i++) {
     Serial.print(memoria[i]);
