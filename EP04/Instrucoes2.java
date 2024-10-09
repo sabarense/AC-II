@@ -8,16 +8,40 @@ public class Instrucoes {
     private char W; // instrucao
 
     public Instrucoes() {
-        this.X = '0'; // inicializando com 0
-        this.Y = '0'; // inicializando com 0
-        this.W = '0'; // inicializando com 0
+        this.X = '0';
+        this.Y = '0';
+        this.W = '0';
+    }
+
+    public void setX(char X) {
+        this.X = X;
+    }
+
+    public void setY(char y) {
+        this.Y = y;
+    }
+
+    public void setW(char W) {
+        this.W = W;
+    }
+
+    public char getX() {
+        return this.X;
+    }
+
+    public char getY() {
+        return this.Y;
+    }
+
+    public char getW() {
+        return this.W;
     }
 
     // metodo main
     public static void main(String[] args) {
         Instrucoes instrucoes = new Instrucoes();
-        File arquivo_fonte = new File("/home/group/Desktop/AC-II/EP04/testeula1.ula");
-        String arquivo_saida = "/home/group/Desktop/AC-II/EP04/testeula.hex";
+        File arquivo_fonte = new File("");
+        String arquivo_saida = "";
 
         // lendo o arquivo de entrada e escrevendo no arquivo de saida
         try (BufferedReader br = new BufferedReader(new FileReader(arquivo_fonte));
@@ -49,31 +73,6 @@ public class Instrucoes {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    // metodos get e set
-    public void setX(char X) {
-        this.X = X;
-    }
-
-    public void setY(char y) {
-        this.Y = y;
-    }
-
-    public void setW(char W) {
-        this.W = W;
-    }
-
-    public char getX() {
-        return this.X;
-    }
-
-    public char getY() {
-        return this.Y;
-    }
-
-    public char getW() {
-        return this.W;
     }
 
     // metodo que retorna o mnemonico
